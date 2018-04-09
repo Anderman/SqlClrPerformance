@@ -15,7 +15,7 @@ namespace testApp
         public void Run()
         {
             for (var i = 0; i < 5; i++) HandCodedOrm();
-            for (var i = 0; i < 5; i++) TimeStampP();
+            for (var i = 0; i < 5; i++) PInvokeEmpty();
             for (var i = 0; i < 5; i++) GetCurrentProcess();
             for (var i = 0; i < 5; i++) ParseDec();
             SwGetCurrentProcess();
@@ -45,9 +45,9 @@ namespace testApp
             }
         }
 
-        private void TimeStampP()
+        private void PInvokeEmpty()
         {
-            using (var sw = new AutoStopWatch($"{nameof(TimeStampP),-20} {{0}}", 100, _reporter))
+            using (var sw = new AutoStopWatch($"{nameof(PInvokeEmpty),-20} {{0}}", 100, _reporter))
             {
                 while (sw.IsRunnning)
                     for (var j = 0; j < 100; j++)

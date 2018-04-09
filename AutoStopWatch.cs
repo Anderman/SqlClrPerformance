@@ -10,8 +10,8 @@ namespace testApp
         private readonly Action<string> _reporter;
         private ulong _start;
         private static readonly ulong CyclesPerSecond = GetCyclesPerSeond();
-        private const double NanoSecondsPerSecond = 1000 * 1000 * 1000;
-        private const double MicroSecondsPerSecond = 1000 * 1000;
+        private const double NanoSecondsPerSecond = 1_000_000_000;
+        private const double MicroSecondsPerSecond = 1_000_000;
         private const double MilliSecondsPerSecond = 1000;
         private readonly double _microSecondsPerCycle;
         private readonly double _milliSecondsPerCycle;
