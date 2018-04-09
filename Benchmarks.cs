@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 
 namespace testApp
 {
@@ -36,7 +35,7 @@ namespace testApp
             {
                 while (sw.IsRunnning)
                     for (var j = 0; j < 100; j++)
-                        Stopwatch.GetTimestamp();
+                        Pinvoke.Empty();
             }
         }
 
