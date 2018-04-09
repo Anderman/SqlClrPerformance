@@ -41,20 +41,34 @@ namespace testApp
         public void Dispose()
         {
             var cyclePerIteration = (_mincycles) / _repeats;
+
             SendMessage(cyclePerIteration);
+            if (_repeats > 1 && cyclePerIteration > 27000)
+                _reporter("Warning: For better results decrease iteration to 1");
+            if (cyclePerIteration * _repeats < 27000)
+                _reporter($"Warning: For better results increase iteration to at least {(int)(27000/cyclePerIteration)}");
+            if (cyclePerIteration <27000 && cyclePerIteration * _repeats > 54000)
+                _reporter($"Warning: For better results decrease iteration to {(int)(35000 / cyclePerIteration)}");
         }
 
         private void SendMessage(double cyclePerIteration)
         {
+            
             var milliSecodsPerIteration = cyclePerIteration * _milliSecondsPerCycle;
             var microSecodsPerIteration = cyclePerIteration * _microSecondsPerCycle;
             var nanoSecodsPerIteration = cyclePerIteration * _nanoSecondPerCycle;
             if (milliSecodsPerIteration > 10)
-                _reporter(string.Format(_message, $"{milliSecodsPerIteration,5:0} ms"));
+                _reporter(string.Format(_message, $"{Significant3Digit(milliSecodsPerIteration)} ms"));
             else if (microSecodsPerIteration > 10)
-                _reporter(string.Format(_message, $"{microSecodsPerIteration,5:0} us"));
+                _reporter(string.Format(_message, $"{Significant3Digit(microSecodsPerIteration)} us"));
             else
-                _reporter(string.Format(_message, $"{nanoSecodsPerIteration,5:0.0} ns {cyclePerIteration,5:0.0} cycles"));
+                _reporter(string.Format(_message, $"{Significant3Digit(nanoSecodsPerIteration)} ns {Significant3Digit(cyclePerIteration)} cycles"));
+        }
+
+        private static string Significant3Digit(double value)
+        {
+            if (value < 10) return $"{value,5:0.00}";
+            return value < 100 ? $"{value,5:0.0}" : $"{value,5:0}";
         }
 
         private static ulong GetCyclesPerSeond()

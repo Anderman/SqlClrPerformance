@@ -37,30 +37,30 @@ namespace testApp
         private void HandCodedOrm()
         {
             using (var orm = new HandCodedOrm())
-            using (var sw = new AutoStopWatch($"{nameof(HandCodedOrm),-20} {{0}}", 100, _reporter))
+            using (var sw = new AutoStopWatch($"{nameof(HandCodedOrm),-20} {{0}}", 1, _reporter))
             {
                 while (sw.IsRunnning)
-                    for (var j = 0; j < 100; j++)
                         orm.Run();
             }
         }
 
         private void PInvokeEmpty()
         {
-            using (var sw = new AutoStopWatch($"{nameof(PInvokeEmpty),-20} {{0}}", 100, _reporter))
+            using (var sw = new AutoStopWatch($"{nameof(PInvokeEmpty),-20} {{0}}", 1000, _reporter))
             {
                 while (sw.IsRunnning)
-                    for (var j = 0; j < 100; j++)
+                    for (var j = 0; j < 1000; j++)
                         Pinvoke.Empty();
             }
         }
 
+
         private void GetCurrentProcess()
         {
-            using (var sw = new AutoStopWatch($"{nameof(GetCurrentProcess),-20} {{0}}", 100, _reporter))
+            using (var sw = new AutoStopWatch($"{nameof(GetCurrentProcess),-20} {{0}}", 200, _reporter))
             {
                 while (sw.IsRunnning)
-                    for (var j = 0; j < 100; j++)
+                    for (var j = 0; j < 200; j++)
                         Process.GetCurrentProcess();
             }
         }
@@ -68,13 +68,12 @@ namespace testApp
         private void ParseDec()
         {
             var decStr = "-49823174320.9293800";
-            using (var sw = new AutoStopWatch($"{nameof(ParseDec),-20} {{0}}", 100, _reporter))
+            using (var sw = new AutoStopWatch($"{nameof(ParseDec),-20} {{0}}", 40, _reporter))
             {
                 while (sw.IsRunnning)
-                    for (var j = 0; j < 100; j++)
+                    for (var j = 0; j < 40; j++)
                         decimal.Parse(decStr);
             }
         }
-
     }
 }
