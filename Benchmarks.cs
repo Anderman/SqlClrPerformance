@@ -14,8 +14,14 @@ namespace testApp
         }
         public void Run()
         {
+            //run static initializers
+            Pinvoke.Empty();
+            Process.GetCurrentProcess();
+            HandCodedOrm();
+            decimal.Parse("-49823174320.9293800");
+            //test
             for (var i = 0; i < 5; i++) HandCodedOrm();
-            for (var i = 0; i < 5; i++) PInvokeEmpty();
+            for (var i = 0; i < 10; i++) PInvokeEmpty();
             for (var i = 0; i < 5; i++) GetCurrentProcess();
             for (var i = 0; i < 5; i++) ParseDec();
             SwGetCurrentProcess();
@@ -46,21 +52,24 @@ namespace testApp
 
         private void PInvokeEmpty()
         {
+
             using (var sw = new AutoStopWatch($"{nameof(PInvokeEmpty),-20} {{0}}", 1000, _reporter))
             {
                 while (sw.IsRunnning)
                     for (var j = 0; j < 1000; j++)
+                    {
                         Pinvoke.Empty();
+                    }
             }
         }
 
 
         private void GetCurrentProcess()
         {
-            using (var sw = new AutoStopWatch($"{nameof(GetCurrentProcess),-20} {{0}}", 200, _reporter))
+            using (var sw = new AutoStopWatch($"{nameof(GetCurrentProcess),-20} {{0}}", 350, _reporter))
             {
                 while (sw.IsRunnning)
-                    for (var j = 0; j < 200; j++)
+                    for (var j = 0; j < 350; j++)
                         Process.GetCurrentProcess();
             }
         }

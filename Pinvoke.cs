@@ -1,7 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -19,7 +17,7 @@ namespace testApp
         private const uint MEM_RELEASE = 0x8000;
 
         public static readonly FuncUInt64 Empty;
-        private static readonly byte[] ReturnOnlyAsm = {  0xC3 };
+        private static readonly byte[] ReturnOnlyAsm = {0xC3};
 
         static Pinvoke()
         {

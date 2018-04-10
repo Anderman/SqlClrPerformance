@@ -41,28 +41,29 @@ namespace testApp
         public void Dispose()
         {
             var cyclePerIteration = (_mincycles) / _repeats;
-
-            SendMessage(cyclePerIteration);
+            var warning = "";
             if (_repeats > 1 && cyclePerIteration > 27000)
-                _reporter("Warning: For better results decrease iteration to 1");
+                warning="Warning: For better results decrease iteration to 1";
             if (cyclePerIteration * _repeats < 27000)
-                _reporter($"Warning: For better results increase iteration to at least {(int)(27000/cyclePerIteration)}");
-            if (cyclePerIteration <27000 && cyclePerIteration * _repeats > 54000)
-                _reporter($"Warning: For better results decrease iteration to {(int)(35000 / cyclePerIteration)}");
+                warning = $"Warning: For better results increase iteration to at least {(int)(54000 / cyclePerIteration)}";
+            if (cyclePerIteration < 27000 && cyclePerIteration * _repeats > 135_000)
+                warning = $"Warning: For better results decrease iteration to {(int)(54000 / cyclePerIteration)}";
+
+            SendMessage(cyclePerIteration,warning);
         }
 
-        private void SendMessage(double cyclePerIteration)
+        private void SendMessage(double cyclePerIteration,string warning)
         {
             
             var milliSecodsPerIteration = cyclePerIteration * _milliSecondsPerCycle;
             var microSecodsPerIteration = cyclePerIteration * _microSecondsPerCycle;
             var nanoSecodsPerIteration = cyclePerIteration * _nanoSecondPerCycle;
             if (milliSecodsPerIteration > 10)
-                _reporter(string.Format(_message, $"{Significant3Digit(milliSecodsPerIteration)} ms"));
+                _reporter(string.Format(_message, $"{Significant3Digit(milliSecodsPerIteration)} ms")+ $" {warning}");
             else if (microSecodsPerIteration > 10)
-                _reporter(string.Format(_message, $"{Significant3Digit(microSecodsPerIteration)} us"));
+                _reporter(string.Format(_message, $"{Significant3Digit(microSecodsPerIteration)} us") + $" {warning}");
             else
-                _reporter(string.Format(_message, $"{Significant3Digit(nanoSecodsPerIteration)} ns {Significant3Digit(cyclePerIteration)} cycles"));
+                _reporter(string.Format(_message, $"{Significant3Digit(nanoSecodsPerIteration)} ns {Significant3Digit(cyclePerIteration)} cycles") + $" {warning}");
         }
 
         private static string Significant3Digit(double value)
